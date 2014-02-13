@@ -1,0 +1,25 @@
+{
+    "name": "pingpong/twitter",
+    "description": "Simple Twitter OAuth for Laravel 4",
+    "keywords": ["OAuth", "twitter", "laravel", "pingpong"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "PiNGPONG LABS",
+            "email": "pingpong.labs@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "jublonet/codebird-php": "2.4.1"
+    },
+    "require-dev": {
+        "illuminate/support": "4.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Pingpong\\Twitter": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
