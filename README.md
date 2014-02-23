@@ -100,7 +100,7 @@ Route::get('upload', function()
 
 Search :
 
-```
+```php
 Route::get('search', function()
 {
 	$query = Input::get('q');
