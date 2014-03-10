@@ -5,7 +5,7 @@ Simple Twitter OAuth for Laravel 4
 Open your composer.json file, and add the new required package.
 
 ```
-  "pingpong/auth2": "dev-master" 
+  "pingpong/twitter": "dev-master" 
 ```
 
 Next, open a terminal and run.
@@ -17,7 +17,7 @@ Next, open a terminal and run.
 After the composer updated. Add new service provider in app/config/app.php.
 
 ```
-  'Pingpong\Auth2\Auth2ServiceProvider'
+  'Pingpong\Twitter\TwitterServiceProvider'
 ```
 
 Next, open a terminal and run.
