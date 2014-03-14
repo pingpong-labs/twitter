@@ -468,6 +468,16 @@ class Twitter
 	}
 
 	/**
+	 * Get user credentials.
+	 * 
+	 * @return Response
+	 */
+	public function getCredentials()
+	{
+		return $this->twitter->account_verifyCredentials();
+	}
+
+	/**
 	 * Magic call to string.
 	 *
 	 * @return string|json|null|response
