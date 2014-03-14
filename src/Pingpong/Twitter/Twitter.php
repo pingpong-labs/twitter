@@ -430,6 +430,28 @@ class Twitter
 	 * @return Response
 	 */
 	public function follow($params)
+	{		
+		$parameters = $this->parseFollowParameter($params);
+		return $this->twitter->friendships_create($parameter);
+	}
+
+	/**
+	 * Unfollow the specified user/id.
+	 * 
+	 * @return Response
+	 */
+	public function unfollow($params)
+	{		
+		$parameters = $this->parseFollowParameter($params);
+		return $this->twitter->friendships_destroy($parameter);
+	}
+
+	/**
+	 * Parse parameter for follow and unfollow method.
+	 * 
+	 * @return Response
+	 */
+	protected function parseFollowParameter($params)
 	{
 		$parameter = [];
 		if(is_string($params))
@@ -442,28 +464,7 @@ class Twitter
 		{
 			$parameter = $params;
 		}
-		return $this->twitter->friendships_create($parameter);
-	}
-
-	/**
-	 * Unfollow the specified user/id.
-	 * 
-	 * @return Response
-	 */
-	public function unfollow()
-	{		
-		$parameter = [];
-		if(is_string($params))
-		{
-			$parameter['screen_name'] = $params;
-		}elseif(is_int($params))
-		{
-			$parameter['id'] = $params;
-		}else
-		{
-			$parameter = $params;
-		}
-		return $this->twitter->friendships_destroy($parameter);
+		return $params;
 	}
 
 	/**
