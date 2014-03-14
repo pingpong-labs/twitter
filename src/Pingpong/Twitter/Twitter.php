@@ -375,6 +375,98 @@ class Twitter
 	}
 
 	/**
+	 * Get Codebird instance.
+	 * 
+	 * @return Response
+	 */
+	public function getInstance()
+	{
+		return $this->twitter;
+	}
+
+	/**
+	 * Get Home timeline.
+	 * 
+	 * @return Response
+	 */
+	public function getHomeTimeline(array $params = array())
+	{
+		return $this->twitter->statuses_homeTimeline($params);
+	}
+
+	/**
+	 * Get User timeline.
+	 * 
+	 * @return Response
+	 */
+	public function getUserTimeline(array $params = array())
+	{
+		return $this->twitter->statuses_userTimeline($params);
+	}
+
+	/**
+	 * Get Mentions timeline.
+	 * 
+	 * @return Response
+	 */
+	public function getMentionsTimeline(array $params = array())
+	{
+		return $this->twitter->statuses_mentionsTimeline($params);
+	}
+	
+	/**
+	 * Get Retweet of me.
+	 * 
+	 * @return Response
+	 */
+	public function getRetweetOfMe(array $params = array())
+	{
+		return $this->twitter->statuses_retweetOfMe($params);
+	}
+
+	/**
+	 * Follow the specified id.
+	 * 
+	 * @return Response
+	 */
+	public function follow($params)
+	{
+		$parameter = [];
+		if(is_string($params))
+		{
+			$parameter['screen_name'] = $params;
+		}elseif(is_int($params))
+		{
+			$parameter['id'] = $params;
+		}else
+		{
+			$parameter = $params;
+		}
+		return $this->twitter->friendships_create($parameter);
+	}
+
+	/**
+	 * Unfollow the specified user/id.
+	 * 
+	 * @return Response
+	 */
+	public function unfollow()
+	{		
+		$parameter = [];
+		if(is_string($params))
+		{
+			$parameter['screen_name'] = $params;
+		}elseif(is_int($params))
+		{
+			$parameter['id'] = $params;
+		}else
+		{
+			$parameter = $params;
+		}
+		return $this->twitter->friendships_destroy($parameter);
+	}
+
+	/**
 	 * Magic call to string.
 	 *
 	 * @return string|json|null|response
