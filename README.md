@@ -42,6 +42,11 @@ return array(
 
 ### Example
 
+Set Token:
+```php
+Twitter::setToken($token, $token_secret);
+```
+
 Authorize:
 
 ```php
@@ -114,4 +119,48 @@ Route::get('search', function()
 });
 ```
 
-More documentation, please check this repo [jublonet/codebird-php](https://github.com/jublonet/codebird-php). This package is using that package as base twitter api. 
+Get Mentions Timeline:
+```php
+Twitter::getMentionsTimeline();
+```
+
+Get Home Timeline:
+```php
+Twitter::getHomeTimeline();
+```
+
+Get Retweet Of Me:
+```php
+Twitter::getRetweetOfMe();
+```
+
+Follow the specified user:
+```php
+Twitter::follow([
+	'id'	=> 123456
+]);
+
+Twitter::follow([
+	'screen_name'	=> 'gravitano'
+]);
+```
+
+Unfollow the specified user:
+```php
+Twitter::unfollow([
+	'id'	=> 123456
+]);
+
+Twitter::unfollow([
+	'screen_name'	=> 'gravitano'
+]);
+```
+
+Get Account Verify Credentials:
+```php
+Twitter::getCredentials();
+```
+
+### License
+
+This package is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
