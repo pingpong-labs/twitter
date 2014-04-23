@@ -90,7 +90,7 @@ class Twitter
 	protected function setOAuthToken()
 	{
 		$oauth_token = $this->session->get('oauth_token');
-		$oauth_token_secret = $this->session->get('oauth_token_secret');
+		$oauth_token_secret = $this->session->get('oauth_token_secret');		
 		$this->twitter->setToken($oauth_token, $oauth_token_secret);
 		return $this;
 	}
@@ -392,6 +392,11 @@ class Twitter
 	public function getHomeTimeline(array $params = array())
 	{
 		return $this->twitter->statuses_homeTimeline($params);
+	}
+
+	public function getUsers(array $params = array())
+	{
+		return $this->twitter->users_show($params);
 	}
 
 	/**
