@@ -478,7 +478,8 @@ class Twitter
 	 */
 	protected function parseFollowParameter($params)
 	{
-		$parameter = [];
+		//$parameter = []; // only for php 5.4+?
+		$parameter = array();
 		if(is_string($params))
 		{
 			$parameter['screen_name'] = $params;
