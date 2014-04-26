@@ -90,7 +90,14 @@ class Twitter
 	protected function setOAuthToken()
 	{
 		$oauth_token = $this->session->get('oauth_token');
-		$oauth_token_secret = $this->session->get('oauth_token_secret');
+		$oauth_token_secret = $this->session->get('oauth_token_secret');		
+		$this->twitter->setToken($oauth_token, $oauth_token_secret);
+		return $this;
+	}
+	public function setNewOAuthToken($oauth_token,$oauth_token_secret)
+	{
+		//$oauth_token = $this->session->get('oauth_token');
+		//$oauth_token_secret = $this->session->get('oauth_token_secret');		
 		$this->twitter->setToken($oauth_token, $oauth_token_secret);
 		return $this;
 	}
@@ -104,6 +111,19 @@ class Twitter
 	{		
 		$consumer_key = $this->getConfig('consumer_key');
 		$consumer_secret = $this->getConfig('consumer_secret');
+		$this->twitter->setConsumerKey($consumer_key, $consumer_secret);
+		return $this;
+	}
+
+	/**
+	 * Set consumer key and consumer secret to the application
+	 *
+	 * @return self
+	 */
+	public function reconfigureConsumer($key,$secret)
+	{		
+		$consumer_key = $this->getConfig($key);
+		$consumer_secret = $this->getConfig($secret);
 		$this->twitter->setConsumerKey($consumer_key, $consumer_secret);
 		return $this;
 	}
@@ -394,6 +414,11 @@ class Twitter
 		return $this->twitter->statuses_homeTimeline($params);
 	}
 
+	public function getUsers(array $params = array())
+	{
+		return $this->twitter->users_show($params);
+	}
+
 	/**
 	 * Get User timeline.
 	 * 
@@ -432,7 +457,7 @@ class Twitter
 	public function follow($params)
 	{		
 		$parameters = $this->parseFollowParameter($params);
-		return $this->twitter->friendships_create($parameter);
+		return $this->twitter->friendships_create($parameters);
 	}
 
 	/**
@@ -443,7 +468,7 @@ class Twitter
 	public function unfollow($params)
 	{		
 		$parameters = $this->parseFollowParameter($params);
-		return $this->twitter->friendships_destroy($parameter);
+		return $this->twitter->friendships_destroy($parameters);
 	}
 
 	/**
@@ -453,7 +478,8 @@ class Twitter
 	 */
 	protected function parseFollowParameter($params)
 	{
-		$parameter = [];
+		//$parameter = []; // only for php 5.4+?
+		$parameter = array();
 		if(is_string($params))
 		{
 			$parameter['screen_name'] = $params;
