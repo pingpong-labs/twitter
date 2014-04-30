@@ -268,6 +268,7 @@ class Twitter
 	{
 		$this->session->forget('oauth_token');
 		$this->session->forget('oauth_token_secret');
+		$this->setNewOAuthToken(null, null);
 		return $this;
 	}
 
