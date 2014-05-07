@@ -330,7 +330,6 @@ class Twitter
 	    	->storeNewSession($request)
 	    	->setOAuthToken()
 	    	->setResponse($request);
-	    ;
 
 	    return 200;
 	}
