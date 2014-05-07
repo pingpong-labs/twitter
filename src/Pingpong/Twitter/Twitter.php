@@ -329,6 +329,7 @@ class Twitter
 	    $this->forgetOAuthToken()
 	    	->storeNewSession($request)
 	    	->setOAuthToken()
+	    	->setResponse($request);
 	    ;
 
 	    return 200;
