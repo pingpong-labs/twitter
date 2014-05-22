@@ -90,11 +90,9 @@ Upload Image/Media to Twitter:
 ```php
 Route::get('upload', function()
 {
-	$options = array(
-		'status'	=>	'Example upload message';
-		'media[]'	=>	'path/to/your/image.jpg'
-	);
-	$tweet = Twitter::upload($options);
+	$status = "Hello world #pic";
+	$media  = "path/to/your/image.jpg";
+	$tweet  = Twitter::upload($status, $media);
 	if($tweet->isOk())
 	{
 		return 'Okay';
