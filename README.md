@@ -159,6 +159,22 @@ Get Account Verify Credentials:
 Twitter::getCredentials();
 ```
 
+Get User data:
+```php
+Twitter::getUsers([
+	'screen_name'	=> 'mjmarianetti'
+]);
+
+$data=array('mjmarianetti','gravitano','canduter'); //max limit 100 (api v1.1)
+Twitter::getUsersLookUp([
+	'screen_name'	=> $data
+]);
+$data_id=array(12456789,7536687,78954); // max limit  100 (api v1.1)
+Twitter::getUsersLookUp([
+	'user_id'	=> $data_id
+]);
+```
+
 ### License
 
 This package is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)

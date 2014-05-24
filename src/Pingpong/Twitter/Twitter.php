@@ -420,6 +420,11 @@ class Twitter
 		return $this->twitter->users_show($params);
 	}
 
+	public function getUsersLookUp(array $params = array())
+	{
+		return $this->twitter->users_lookup($params);
+	}
+
 	/**
 	 * Get User timeline.
 	 * 
