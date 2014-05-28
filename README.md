@@ -179,7 +179,7 @@ Twitter::getUsersLookUp([
 Get Search/Tweets
 ```php
 $param=array(
-	'q' => $trend->name // search in twitter docs for more params
+	'q' => $name // search in twitter docs for more params
 );
 $tweets=Twitter::getSearchTweets($param);	
 ```
