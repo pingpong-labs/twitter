@@ -268,6 +268,7 @@ class Twitter
 	{
 		$this->session->forget('oauth_token');
 		$this->session->forget('oauth_token_secret');
+		$this->setNewOAuthToken(null, null);
 		return $this;
 	}
 
@@ -422,6 +423,16 @@ class Twitter
 	public function getUsersLookUp(array $params = array())
 	{
 		return $this->twitter->users_lookup($params);
+	}
+
+	public function getTrendsPlace(array $params = array())
+	{
+		return $this->twitter->trends_place($params);
+	}
+
+	public function getSearchTweets(array $params = array())
+	{
+		return $this->twitter->search_tweets($params);			
 	}
 
 	/**
