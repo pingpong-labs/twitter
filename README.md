@@ -174,7 +174,18 @@ Twitter::getUsersLookUp([
 	'user_id'	=> $data_id
 ]);
 ```
+Get Search/Tweets
+```php
+$param=array(
+	'q' => $name // search in twitter docs for more params
+);
+$tweets=Twitter::getSearchTweets($param);	
+```
 
+Get Trends/Place
+```php
+ Twitter::getTrendsPlace(array('id'=>$woeid)); // you have to use the WOEID of the place you want.
+```
 ### License
 
 This package is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)

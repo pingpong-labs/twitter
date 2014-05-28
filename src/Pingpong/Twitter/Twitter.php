@@ -425,6 +425,16 @@ class Twitter
 		return $this->twitter->users_lookup($params);
 	}
 
+	public function getTrendsPlace(array $params = array())
+	{
+		return $this->twitter->trends_place($params);
+	}
+
+	public function getSearchTweets(array $params = array())
+	{
+		return $this->twitter->search_tweets($params);			
+	}
+
 	/**
 	 * Get User timeline.
 	 * 
