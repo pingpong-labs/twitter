@@ -479,6 +479,18 @@ class Twitter
 		return $this->twitter->search_tweets($params);			
 	}
 
+	public function getFollowersList(array $params = array()) {
+        return $this->twitter->followers_list($params);
+    }
+    
+    public function getFriendsList(array $params = array()) {
+        return $this->twitter->friends_list($params);
+    }
+
+    public function retweet($id = 0) {      
+        return $this->twitter->__call('statuses_retweet_:id', $id);       
+    }
+
 	/**
 	 * Get User timeline.
 	 * 
