@@ -56,6 +56,17 @@ Route::get('/', function()
 	return Twitter::authorize($callback);
 });
 ```
+
+Authenticate:
+
+```php
+Route::get('/', function()
+{
+	$callback = url('twitter/callback');
+	return Twitter::authenticate($callback);
+});
+```
+
 Get callback after authorize:
 
 ```php

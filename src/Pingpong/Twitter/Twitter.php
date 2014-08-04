@@ -128,29 +128,51 @@ class Twitter
 		return $this;
 	}
 
-	/**
-	 * Authorize to twitter
-	 *
-	 * @param  string  $callback 
-	 * @return Response
-	 */
-	public function authorize($callback)
-	{
-		$this->destroy();
-		$request = $this->twitter->oauth_requestToken(array(
-	        'oauth_callback' => $callback
-	    ));	 
-	    $this->setResponse($request);
-	    if($this->isResponseOk($request))
-    	{
-    		$this->storeNewSession($request);
-    		return $this->redirect->to($this->authUrl());
-    	}
-    	else
-    	{
-    		return $this->setResponse($request);
-    	}
-	}
+    /**
+     * Authorize to twitter
+     *
+     * @param  string  $callback
+     * @return Response
+     */
+    public function authorize($callback)
+    {
+        return $this->doAuthFlow('authorize', $callback);
+    }
+
+    /**
+     * Authenticate to twitter
+     *
+     * @param  string  $callback
+     * @return Response
+     */
+    public function authenticate($callback)
+    {
+        return $this->doAuthFlow('authenticate', $callback);
+    }
+
+    /**
+     * Authenticates or authorizes to twitter
+     * @param  string  $authMode    Either 'authenticate' or 'authorize'
+     * @param  string  $callback
+     * @return Response
+     */
+    protected function doAuthFlow($authMode, $callback)
+    {
+        $this->destroy();
+        $request = $this->twitter->oauth_requestToken(array(
+            'oauth_callback' => $callback
+        ));
+        $this->setResponse($request);
+        if($this->isResponseOk($request))
+        {
+            $this->storeNewSession($request);
+            return $this->redirect->to($this->authUrl($authMode));
+        }
+        else
+        {
+            return $this->setResponse($request);
+        }
+    }
 
 	/**
 	 * Set response to the application
@@ -199,15 +221,37 @@ class Twitter
 		return json_encode($this->response);
 	}
 
-	/**
-	 * Get Authentication URL from twitter
-	 *
-	 * @return String
-	 */
-	public function authUrl()
-	{
-		return $this->twitter->oauth_authorize();
-	}
+    /**
+     * Get Authorization or Authentication URL form twitter
+     *
+     * @param  String $authMode 'authenticate' or 'authorize'
+     * @return String
+     */
+    public function authUrl($authMode = 'authorize')
+    {
+        $functionName = $authMode . 'Url';
+        return $this->{$functionName}();
+    }
+
+    /**
+     * Get Authorization URL from twitter
+     *
+     * @return String
+     */
+    public function authorizeUrl()
+    {
+        return $this->twitter->oauth_authorize();
+    }
+
+    /**
+     * Get Authorization URL from twitter
+     *
+     * @return String
+     */
+    public function authenticateUrl()
+    {
+        return $this->twitter->oauth_authenticate();
+    }
 
 	/**
 	 * Store new session token and secret to the application.
@@ -329,7 +373,7 @@ class Twitter
 	    $this->forgetOAuthToken()
 	    	->storeNewSession($request)
 	    	->setOAuthToken()
-	    ;
+	    	->setResponse($request);
 
 	    return 200;
 	}
