@@ -9,508 +9,552 @@ class TwitterException extends Exception {};
 
 class Twitter
 {
-	/**
-	 * Application Object
-	 *
-	 * @var \Illuminate\Foundation\Application
-	 */
-	protected $app;
-	
-	/**
-	 * Config Repository Object
-	 *
-	 * @var \Illuminate\Config\Repository
-	 */
-	protected $config;
+    /**
+     * Application Object
+     *
+     * @var \Illuminate\Foundation\Application
+     */
+    protected $app;
 
-	/**
-	 * SessionManager Object
-	 *
-	 * @var \Illuminate\Session\SessionManager
-	 */
-	protected $session;
+    /**
+     * Config Repository Object
+     *
+     * @var \Illuminate\Config\Repository
+     */
+    protected $config;
 
-	/**
-	 * Request Object
-	 *
-	 * @var \Illuminate\Http\Request
-	 */
-	protected $request;
+    /**
+     * SessionManager Object
+     *
+     * @var \Illuminate\Session\SessionManager
+     */
+    protected $session;
 
-	/**
-	 * Redirector Object
-	 *
-	 * @var \Illuminate\Routing\Redirector
-	 */
-	protected $redirect;
-	
-	/**
-	 * Codebird\Codebird Object
-	 *
-	 * @var \Codebird\Codebird
-	 */
-	protected $twitter;
-	
-	/**
-	 * Response Object
-	 *
-	 * @var null|object
-	 */
-	protected $response = null;
+    /**
+     * Request Object
+     *
+     * @var \Illuminate\Http\Request
+     */
+    protected $request;
 
-	public function __construct(Application $app) {
-		$this->app = $app;
-		$this->config = $app['config'];
-		$this->session = $app['session'];
-		$this->request = $app['request'];
-		$this->redirect = $app['redirect'];
-		$this->twitter = BaseTwitter::getInstance();
-		$this->prepare();
-	}
+    /**
+     * Redirector Object
+     *
+     * @var \Illuminate\Routing\Redirector
+     */
+    protected $redirect;
 
-	/**
-	 * Prepare auth
-	 *
-	 * @return void
-	 */
-	protected function prepare()
-	{
-		$this->setConsumer();
-		if($this->check())
-		{
-			$this->setOAuthToken();
-		}
-	}
+    /**
+     * Codebird\Codebird Object
+     *
+     * @var \Codebird\Codebird
+     */
+    protected $twitter;
 
-	/**
-	 * Set auth token from session
-	 *
-	 * @return self
-	 */
-	protected function setOAuthToken()
-	{
-		$oauth_token = $this->session->get('oauth_token');
-		$oauth_token_secret = $this->session->get('oauth_token_secret');		
-		$this->twitter->setToken($oauth_token, $oauth_token_secret);
-		return $this;
-	}
-	public function setNewOAuthToken($oauth_token,$oauth_token_secret)
-	{
-		//$oauth_token = $this->session->get('oauth_token');
-		//$oauth_token_secret = $this->session->get('oauth_token_secret');		
-		$this->twitter->setToken($oauth_token, $oauth_token_secret);
-		return $this;
-	}
-	
-	/**
-	 * Set consumer key and consumer secret to the application
-	 *
-	 * @return self
-	 */
-	protected function setConsumer()
-	{		
-		$consumer_key = $this->getConfig('consumer_key');
-		$consumer_secret = $this->getConfig('consumer_secret');
-		$this->twitter->setConsumerKey($consumer_key, $consumer_secret);
-		return $this;
-	}
+    /**
+     * Response Object
+     *
+     * @var null|object
+     */
+    protected $response = null;
 
-	/**
-	 * Set consumer key and consumer secret to the application
-	 *
-	 * @return self
-	 */
-	public function reconfigureConsumer($key,$secret)
-	{		
-		$consumer_key = $this->getConfig($key);
-		$consumer_secret = $this->getConfig($secret);
-		$this->twitter->setConsumerKey($consumer_key, $consumer_secret);
-		return $this;
-	}
+    public function __construct(Application $app) {
+        $this->app = $app;
+        $this->config = $app['config'];
+        $this->session = $app['session'];
+        $this->request = $app['request'];
+        $this->redirect = $app['redirect'];
+        $this->twitter = BaseTwitter::getInstance();
+        $this->prepare();
+    }
 
-	/**
-	 * Authorize to twitter
-	 *
-	 * @param  string  $callback 
-	 * @return Response
-	 */
-	public function authorize($callback)
-	{
-		$this->destroy();
-		$request = $this->twitter->oauth_requestToken(array(
-	        'oauth_callback' => $callback
-	    ));	 
-	    $this->setResponse($request);
-	    if($this->isResponseOk($request))
-    	{
-    		$this->storeNewSession($request);
-    		return $this->redirect->to($this->authUrl());
-    	}
-    	else
-    	{
-    		return $this->setResponse($request);
-    	}
-	}
+    /**
+     * Prepare auth
+     *
+     * @return void
+     */
+    protected function prepare()
+    {
+        $this->setConsumer();
+        if($this->check())
+        {
+            $this->setOAuthToken();
+        }
+    }
 
-	/**
-	 * Set response to the application
-	 *
-	 * @param  object  $response 
-	 * @return Self
-	 */
-	public function setResponse($response)
-	{
-		$this->response = $response;
-		return $this;
-	}
+    /**
+     * Set auth token from session
+     *
+     * @return self
+     */
+    protected function setOAuthToken()
+    {
+        $oauth_token = $this->session->get('oauth_token');
+        $oauth_token_secret = $this->session->get('oauth_token_secret');
+        $this->twitter->setToken($oauth_token, $oauth_token_secret);
+        return $this;
+    }
+    public function setNewOAuthToken($oauth_token,$oauth_token_secret)
+    {
+        //$oauth_token = $this->session->get('oauth_token');
+        //$oauth_token_secret = $this->session->get('oauth_token_secret');
+        $this->twitter->setToken($oauth_token, $oauth_token_secret);
+        return $this;
+    }
 
-	/**
-	 * Get current response from the application
-	 *
-	 * @return Response
-	 */
-	public function getResponse()
-	{
-		return $this->response;
-	}
+    /**
+     * Set consumer key and consumer secret to the application
+     *
+     * @return self
+     */
+    protected function setConsumer()
+    {
+        $consumer_key = $this->getConfig('consumer_key');
+        $consumer_secret = $this->getConfig('consumer_secret');
+        $this->twitter->setConsumerKey($consumer_key, $consumer_secret);
+        return $this;
+    }
 
-	/**
-	 * Get boolean result, is response ok ? 
-	 *
-	 * @return Boolean
-	 */
-	public function isOk()
-	{
-		$response = $this->getResponse();
-		if( ! isset($response->httpstatus))
-		{
-			return false;
-		}
-		return $this->isResponseOk($response);
-	}
+    /**
+     * Set consumer key and consumer secret to the application
+     *
+     * @return self
+     */
+    public function reconfigureConsumer($key,$secret)
+    {
+        $consumer_key = $this->getConfig($key);
+        $consumer_secret = $this->getConfig($secret);
+        $this->twitter->setConsumerKey($consumer_key, $consumer_secret);
+        return $this;
+    }
 
-	/**
-	 * Get response and convert it to json.
-	 *
-	 * @return json
-	 */
-	public function getResponseJson()
-	{
-		return json_encode($this->response);
-	}
+    /**
+     * Authorize to twitter
+     *
+     * @param  string  $callback
+     * @return Response
+     */
+    public function authorize($callback)
+    {
+        return $this->doAuthFlow('authorize', $callback);
+    }
 
-	/**
-	 * Get Authentication URL from twitter
-	 *
-	 * @return String
-	 */
-	public function authUrl()
-	{
-		return $this->twitter->oauth_authorize();
-	}
+    /**
+     * Authenticate to twitter
+     *
+     * @param  string  $callback
+     * @return Response
+     */
+    public function authenticate($callback)
+    {
+        return $this->doAuthFlow('authenticate', $callback);
+    }
 
-	/**
-	 * Store new session token and secret to the application.
-	 *
-	 * @param  object  $request 
-	 * @return Self
-	 */
-	public function storeNewSession($request)
-	{
-		$this->setToken($request->oauth_token, $request->oauth_token_secret);
-		$this->session->put('oauth_verify', 1);
-		return $this;
-	}
+    /**
+     * Authenticates or authorizes to twitter
+     * @param  string  $authMode    Either 'authenticate' or 'authorize'
+     * @param  string  $callback
+     * @return Response
+     */
+    protected function doAuthFlow($authMode, $callback)
+    {
+        $this->destroy();
+        $request = $this->twitter->oauth_requestToken(array(
+            'oauth_callback' => $callback
+        ));
+        $this->setResponse($request);
+        if($this->isResponseOk($request))
+        {
+            $this->storeNewSession($request);
+            return $this->redirect->to($this->authUrl($authMode));
+        }
+        else
+        {
+            return $this->setResponse($request);
+        }
+    }
 
-	/**
-	 * Is response ok ?
-	 *
-	 * @param  object  $request 
-	 * @return boolean
-	 */
-	protected function isResponseOk($request)
-	{
-		return $request->httpstatus == 200;
-	}
+    /**
+     * Set response to the application
+     *
+     * @param  object  $response
+     * @return Self
+     */
+    public function setResponse($response)
+    {
+        $this->response = $response;
+        return $this;
+    }
 
-	/**
-	 * Set new token to the session storage.
-	 *
-	 * @param  string  $token
-	 * @param  string  $secret 
-	 * @return void
-	 */
-	public function setToken($token, $secret)
-	{
-		$this->session->put('oauth_token', $token);
-		$this->session->put('oauth_token_secret', $secret);
-	    return $this->twitter->setToken($token, $secret);
-	}
+    /**
+     * Get current response from the application
+     *
+     * @return Response
+     */
+    public function getResponse()
+    {
+        return $this->response;
+    }
 
-	/**
-	 * Destroy the session oauth.
-	 * 
-	 * @return boolean
-	 */
-	public function destroy()
-	{
-		$this->forgetOAuthToken();
-		$this->forgetOAuthVerify();
-		return true;
-	}
+    /**
+     * Get boolean result, is response ok ?
+     *
+     * @return Boolean
+     */
+    public function isOk()
+    {
+        $response = $this->getResponse();
+        if( ! isset($response->httpstatus))
+        {
+            return false;
+        }
+        return $this->isResponseOk($response);
+    }
 
-	/**
-	 * Forget current OAuth token and OAuth token secret.
-	 *
-	 * @return self
-	 */
-	public function forgetOAuthToken()
-	{
-		$this->session->forget('oauth_token');
-		$this->session->forget('oauth_token_secret');
-		$this->setNewOAuthToken(null, null);
-		return $this;
-	}
+    /**
+     * Get response and convert it to json.
+     *
+     * @return json
+     */
+    public function getResponseJson()
+    {
+        return json_encode($this->response);
+    }
 
-	/**
-	 * Forget current OAuth verify.
-	 *
-	 * @return self
-	 */
-	public function forgetOAuthVerify()
-	{
-		$this->session->forget('oauth_verify');
-		return $this;
-	}
+    /**
+     * Get Authorization or Authentication URL form twitter
+     *
+     * @param  String $authMode 'authenticate' or 'authorize'
+     * @return String
+     */
+    public function authUrl($authMode = 'authorize')
+    {
+        $functionName = $authMode . 'Url';
+        return $this->{$functionName}();
+    }
 
-	/**
-	 * Checking, is twitter connected ?
-	 *
-	 * @return boolean
-	 */
-	public function check()
-	{
-		$checkToken = $this->session->has('oauth_token') && $this->session->has('oauth_token_secret');
-		return $checkToken && $this->session->has('oauth_verify');
-	}
+    /**
+     * Get Authorization URL from twitter
+     *
+     * @return String
+     */
+    public function authorizeUrl()
+    {
+        return $this->twitter->oauth_authorize();
+    }
 
-	/**
-	 * Get configuration application.
-	 *
-	 * @param  string  $key 
-	 * @return void
-	 */
-	public function getConfig($key)
-	{
-		return $this->config->get('twitter::twitter.'.$key);
-	}
+    /**
+     * Get Authorization URL from twitter
+     *
+     * @return String
+     */
+    public function authenticateUrl()
+    {
+        return $this->twitter->oauth_authenticate();
+    }
 
-	/**
-	 * Get callback from authenticated user.
-	 *
-	 * @return int
-	 */
-	public function getCallback()
-	{
-		if($this->request->has('denied') || ! $this->request->has('oauth_verifier'))
-		{
-			return 403;
-		}
-		$this->forgetOAuthVerify();
-		$request = $this->twitter->oauth_accessToken(array(
-	        'oauth_verifier' => $this->request->get('oauth_verifier')
-	    ));
+    /**
+     * Store new session token and secret to the application.
+     *
+     * @param  object  $request
+     * @return Self
+     */
+    public function storeNewSession($request)
+    {
+        $this->setToken($request->oauth_token, $request->oauth_token_secret);
+        $this->session->put('oauth_verify', 1);
+        return $this;
+    }
 
-	    if( ! $this->isResponseOk($request))
-	    {
-	    	return 400;
-	    }
+    /**
+     * Is response ok ?
+     *
+     * @param  object  $request
+     * @return boolean
+     */
+    protected function isResponseOk($request)
+    {
+        return $request->httpstatus == 200;
+    }
 
-	    $this->forgetOAuthToken()
-	    	->storeNewSession($request)
-	    	->setOAuthToken()
-	    	->setResponse($request);
+    /**
+     * Set new token to the session storage.
+     *
+     * @param  string  $token
+     * @param  string  $secret
+     * @return void
+     */
+    public function setToken($token, $secret)
+    {
+        $this->session->put('oauth_token', $token);
+        $this->session->put('oauth_token_secret', $secret);
+        return $this->twitter->setToken($token, $secret);
+    }
 
-	    return 200;
-	}
+    /**
+     * Destroy the session oauth.
+     *
+     * @return boolean
+     */
+    public function destroy()
+    {
+        $this->forgetOAuthToken();
+        $this->forgetOAuthVerify();
+        return true;
+    }
 
-	/*
-	 |----------------------------------------------------------------------------------------------
-	 | Twitter API Call
-	 |----------------------------------------------------------------------------------------------
-	 |
-	 | Here is all twitter API call defined. This is very cool for make your twitter API Application
-	 | 
-	 |
-	 */
+    /**
+     * Forget current OAuth token and OAuth token secret.
+     *
+     * @return self
+     */
+    public function forgetOAuthToken()
+    {
+        $this->session->forget('oauth_token');
+        $this->session->forget('oauth_token_secret');
+        $this->setNewOAuthToken(null, null);
+        return $this;
+    }
 
-	/**
-	 * Send new tweet to tweeter.
-	 *
-	 * @param  array  $options
-	 * @return void
-	 */
-	public function tweet($options = array())
-	{
-		if(is_string($options)){
-			$params = array(
-				'status'	=> $options
-			);
-		}elseif(is_array($options)){
-			$params = $options;
-		}else{
-			throw new TwitterException("Parameter must be a string or array.");
-		}
-		$request = $this->twitter->statuses_update($params);
-		return $this->setResponse($request);		
-	}
+    /**
+     * Forget current OAuth verify.
+     *
+     * @return self
+     */
+    public function forgetOAuthVerify()
+    {
+        $this->session->forget('oauth_verify');
+        return $this;
+    }
 
-	/**
-	 * Upload media to twitter.
-	 *
-	 * @param  string  $status
-	 * @param  string  $media 
-	 * @return void
-	 */
-	public function upload($status, $media)
-	{
-		$params = array(
-		    'status' 	=> $status,
-		    'media[]' 	=> $media
-		);
-		$request = $this->twitter->statuses_updateWithMedia($params);
-		return $this->setResponse($request);		
-	}
+    /**
+     * Checking, is twitter connected ?
+     *
+     * @return boolean
+     */
+    public function check()
+    {
+        $checkToken = $this->session->has('oauth_token') && $this->session->has('oauth_token_secret');
+        return $checkToken && $this->session->has('oauth_verify');
+    }
 
-	/**
-	 * Search to twitter.
-	 *
-	 * @param  string  $text
-	 * @param  boolean $option 
-	 * @return void
-	 */
-	public function search($text, $option = true)
-	{
-		$request = $this->twitter->search_tweets('q='.$text, $option);
-		return $this->setResponse($request);		
-	}
+    /**
+     * Get configuration application.
+     *
+     * @param  string  $key
+     * @return void
+     */
+    public function getConfig($key)
+    {
+        return $this->config->get('twitter::twitter.'.$key);
+    }
 
-	/**
-	 * Get Codebird instance.
-	 * 
-	 * @return Response
-	 */
-	public function getInstance()
-	{
-		return $this->twitter;
-	}
+    /**
+     * Get callback from authenticated user.
+     *
+     * @return int
+     */
+    public function getCallback()
+    {
+        if($this->request->has('denied') || ! $this->request->has('oauth_verifier'))
+        {
+            return 403;
+        }
+        $this->forgetOAuthVerify();
+        $request = $this->twitter->oauth_accessToken(array(
+            'oauth_verifier' => $this->request->get('oauth_verifier')
+        ));
 
-	/**
-	 * Get Home timeline.
-	 * 
-	 * @return Response
-	 */
-	public function getHomeTimeline(array $params = array())
-	{
-		return $this->twitter->statuses_homeTimeline($params);
-	}
+        if( ! $this->isResponseOk($request))
+        {
+            return 400;
+        }
 
-	public function getUsers(array $params = array())
-	{
-		return $this->twitter->users_show($params);
-	}
+        $this->forgetOAuthToken()
+            ->storeNewSession($request)
+            ->setOAuthToken()
+            ->setResponse($request);
 
-	/**
-	 * Get User timeline.
-	 * 
-	 * @return Response
-	 */
-	public function getUserTimeline(array $params = array())
-	{
-		return $this->twitter->statuses_userTimeline($params);
-	}
+        return 200;
+    }
 
-	/**
-	 * Get Mentions timeline.
-	 * 
-	 * @return Response
-	 */
-	public function getMentionsTimeline(array $params = array())
-	{
-		return $this->twitter->statuses_mentionsTimeline($params);
-	}
-	
-	/**
-	 * Get Retweet of me.
-	 * 
-	 * @return Response
-	 */
-	public function getRetweetOfMe(array $params = array())
-	{
-		return $this->twitter->statuses_retweetOfMe($params);
-	}
+    /*
+     |----------------------------------------------------------------------------------------------
+     | Twitter API Call
+     |----------------------------------------------------------------------------------------------
+     |
+     | Here is all twitter API call defined. This is very cool for make your twitter API Application
+     |
+     |
+     */
 
-	/**
-	 * Follow the specified id.
-	 * 
-	 * @return Response
-	 */
-	public function follow($params)
-	{		
-		$parameters = $this->parseFollowParameter($params);
-		return $this->twitter->friendships_create($parameters);
-	}
+    /**
+     * Send new tweet to tweeter.
+     *
+     * @param  array  $options
+     * @return void
+     */
+    public function tweet($options = array())
+    {
+        if(is_string($options)){
+            $params = array(
+                'status'    => $options
+            );
+        }elseif(is_array($options)){
+            $params = $options;
+        }else{
+            throw new TwitterException("Parameter must be a string or array.");
+        }
+        $request = $this->twitter->statuses_update($params);
+        return $this->setResponse($request);
+    }
 
-	/**
-	 * Unfollow the specified user/id.
-	 * 
-	 * @return Response
-	 */
-	public function unfollow($params)
-	{		
-		$parameters = $this->parseFollowParameter($params);
-		return $this->twitter->friendships_destroy($parameters);
-	}
+    /**
+     * Upload media to twitter.
+     *
+     * @param  string  $status
+     * @param  string  $media
+     * @return void
+     */
+    public function upload($status, $media)
+    {
+        $params = array(
+            'status'    => $status,
+            'media[]'   => $media
+        );
+        $request = $this->twitter->statuses_updateWithMedia($params);
+        return $this->setResponse($request);
+    }
 
-	/**
-	 * Parse parameter for follow and unfollow method.
-	 * 
-	 * @return Response
-	 */
-	protected function parseFollowParameter($params)
-	{
-		//$parameter = []; // only for php 5.4+?
-		$parameter = array();
-		if(is_string($params))
-		{
-			$parameter['screen_name'] = $params;
-		}elseif(is_int($params))
-		{
-			$parameter['id'] = $params;
-		}else
-		{
-			$parameter = $params;
-		}
-		return $params;
-	}
+    /**
+     * Search to twitter.
+     *
+     * @param  string  $text
+     * @param  boolean $option
+     * @return void
+     */
+    public function search($text, $option = true)
+    {
+        $request = $this->twitter->search_tweets('q='.$text, $option);
+        return $this->setResponse($request);
+    }
 
-	/**
-	 * Get user credentials.
-	 * 
-	 * @return Response
-	 */
-	public function getCredentials()
-	{
-		return $this->twitter->account_verifyCredentials();
-	}
+    /**
+     * Get Codebird instance.
+     *
+     * @return Response
+     */
+    public function getInstance()
+    {
+        return $this->twitter;
+    }
 
-	/**
-	 * Magic call to string.
-	 *
-	 * @return string|json|null|response
-	 */
-	public function __toString()
-	{
-		return $this->getResponseJson();
-	}
+    /**
+     * Get Home timeline.
+     *
+     * @return Response
+     */
+    public function getHomeTimeline(array $params = array())
+    {
+        return $this->twitter->statuses_homeTimeline($params);
+    }
+
+    public function getUsers(array $params = array())
+    {
+        return $this->twitter->users_show($params);
+    }
+
+    /**
+     * Get User timeline.
+     *
+     * @return Response
+     */
+    public function getUserTimeline(array $params = array())
+    {
+        return $this->twitter->statuses_userTimeline($params);
+    }
+
+    /**
+     * Get Mentions timeline.
+     *
+     * @return Response
+     */
+    public function getMentionsTimeline(array $params = array())
+    {
+        return $this->twitter->statuses_mentionsTimeline($params);
+    }
+
+    /**
+     * Get Retweet of me.
+     *
+     * @return Response
+     */
+    public function getRetweetOfMe(array $params = array())
+    {
+        return $this->twitter->statuses_retweetOfMe($params);
+    }
+
+    /**
+     * Follow the specified id.
+     *
+     * @return Response
+     */
+    public function follow($params)
+    {
+        $parameters = $this->parseFollowParameter($params);
+        return $this->twitter->friendships_create($parameters);
+    }
+
+    /**
+     * Unfollow the specified user/id.
+     *
+     * @return Response
+     */
+    public function unfollow($params)
+    {
+        $parameters = $this->parseFollowParameter($params);
+        return $this->twitter->friendships_destroy($parameters);
+    }
+
+    /**
+     * Parse parameter for follow and unfollow method.
+     *
+     * @return Response
+     */
+    protected function parseFollowParameter($params)
+    {
+        //$parameter = []; // only for php 5.4+?
+        $parameter = array();
+        if(is_string($params))
+        {
+            $parameter['screen_name'] = $params;
+        }elseif(is_int($params))
+        {
+            $parameter['id'] = $params;
+        }else
+        {
+            $parameter = $params;
+        }
+        return $params;
+    }
+
+    /**
+     * Get user credentials.
+     *
+     * @return Response
+     */
+    public function getCredentials()
+    {
+        return $this->twitter->account_verifyCredentials();
+    }
+
+    /**
+     * Magic call to string.
+     *
+     * @return string|json|null|response
+     */
+    public function __toString()
+    {
+        return $this->getResponseJson();
+    }
 }
