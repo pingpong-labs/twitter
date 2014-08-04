@@ -58,8 +58,6 @@ class Twitter
 	 */
 	protected $response = null;
 
-	private $sessionEnabled = true;
-
 	public function __construct(Application $app) {
 		$this->app = $app;
 		$this->config = $app['config'];
@@ -68,14 +66,6 @@ class Twitter
 		$this->redirect = $app['redirect'];
 		$this->twitter = BaseTwitter::getInstance();
 		$this->prepare();
-	}
-
-	public function enableSession($param = true){
-		$this->sessionEnabled = $param;
-	}
-
-	public function isSessionEnabled(){
-		return $this->sessionEnabled;
 	}
 
 	/**
@@ -228,9 +218,7 @@ class Twitter
 	public function storeNewSession($request)
 	{
 		$this->setToken($request->oauth_token, $request->oauth_token_secret);
-		if($sessionEnabled){
-			$this->session->put('oauth_verify', 1);
-		}
+		$this->session->put('oauth_verify', 1);
 		return $this;
 	}
 
@@ -254,10 +242,8 @@ class Twitter
 	 */
 	public function setToken($token, $secret)
 	{
-		if($sessionEnabled){
-			$this->session->put('oauth_token', $token);
-			$this->session->put('oauth_token_secret', $secret);
-		}		
+		$this->session->put('oauth_token', $token);
+		$this->session->put('oauth_token_secret', $secret);
 	    return $this->twitter->setToken($token, $secret);
 	}
 
