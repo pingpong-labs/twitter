@@ -192,7 +192,7 @@ class Twitter {
         }
         elseif ( ! is_null($oauthToken) && ! is_null($oauthTokenSecret) )
         {
-            $this->twitter->setToken($oauthToken, $oauthTokenSecret);
+            $this->setToken($oauthToken, $oauthTokenSecret);
         }
         elseif ($this->hasSessionToken())
         {
@@ -378,7 +378,7 @@ class Twitter {
             $token = $this->response->oauth_token;
             $token_secret = $this->response->oauth_token_secret;
 
-            $this->twitter->setToken($token, $token_secret);
+            $this->setToken($token, $token_secret);
 
             $this->session->put('oauth_request_token', $token);
             $this->session->put('oauth_request_token_secret', $token_secret);
@@ -550,7 +550,21 @@ class Twitter {
         $token = $this->session->get('twitter.oauth_token');
         $tokenSecret = $this->session->get('twitter.oauth_token_secret');
 
+        $this->setToken($token, $tokenSecret);
+    }
+
+    /**
+     * Set oauth token.
+     *
+     * @param $token
+     * @param $tokenSecret
+     * @return $this
+     */
+    public function setToken($token, $tokenSecret)
+    {
         $this->twitter->setToken($token, $tokenSecret);
+
+        return $this;
     }
 
     /**

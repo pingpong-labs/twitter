@@ -179,6 +179,16 @@ Allows a Consumer application to exchange the OAuth Request Token for an OAuth A
 Twitter::xAuth($username, $password);
 ```
 
+Get bearer token.
+```php
+$token = Twitter::getBearerToken();
+```
+
+Set bearer token.
+```php
+Twitter::setBearerToken($token);
+```
+
 ### Example
 
 Authenticate the user.
