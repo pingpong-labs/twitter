@@ -5,7 +5,7 @@ Simple Twitter OAuth for Laravel 4
 Open your composer.json file, and add the new required package.
 
 ```
-  "pingpong/twitter": "dev-master" 
+  "pingpong/twitter": "1.0.*" 
 ```
 
 Next, open a terminal and run.
@@ -176,21 +176,24 @@ Twitter::getUsers([
 	'screen_name'	=> 'mjmarianetti'
 ]);
 
-$data=array('mjmarianetti','gravitano','canduter'); //max limit 100 (api v1.1)
+$data = array('mjmarianetti','gravitano','canduter'); //max limit 100 (api v1.1)
+
 Twitter::getUsersLookUp([
 	'screen_name'	=> $data
 ]);
-$data_id=array(12456789,7536687,78954); // max limit  100 (api v1.1)
+
+$data_id = array(12456789, 7536687, 78954); // max limit  100 (api v1.1)
+
 Twitter::getUsersLookUp([
 	'user_id'	=> $data_id
 ]);
 ```
 Get Search/Tweets
 ```php
-$param=array(
+$param = array(
 	'q' => $name // search in twitter docs for more params
 );
-$tweets=Twitter::getSearchTweets($param);	
+$tweets = Twitter::getSearchTweets($param);	
 ```
 
 Get Trends/Place
