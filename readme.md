@@ -241,7 +241,7 @@ Route::get('twitter/upload', function()
 
 Timelines are collections of Tweets, ordered with the most recent first.
 
-##### GET statuses/mentions_timeline
+###### GET statuses/mentions_timeline
 
 Returns the 20 most recent mentions (tweets containing a users's @screen_name) for the authenticating user.
 
@@ -249,21 +249,21 @@ Returns the 20 most recent mentions (tweets containing a users's @screen_name) f
 Twitter::getStatusesMentionsTimeline($parameters, $multipart, $appOnlyAuth);
 ```
 
-#### GET statuses/user_timeline
+##### GET statuses/user_timeline
 
 Returns a collection of the most recent Tweets posted by the user indicated by the screen_name or user_id parameters.
 
 ```php
 Twitter::getStatusesUserTimeline($parameters, $multipart, $appOnlyAuth);
 ```
-#### GET statuses/home_timeline
+##### GET statuses/home_timeline
 
 Returns a collection of the most recent Tweets and retweets posted by the authenticating user and the users they follow. 
 
 ```php
 Twitter::getStatusesHomeTimeline($parameters, $multipart, $appOnlyAuth);
 ```
-#### GET statuses/retweet_of_me
+##### GET statuses/retweet_of_me
 
 Returns the most recent tweets authored by the authenticating user that have been retweeted by others. 
 
@@ -271,7 +271,71 @@ Returns the most recent tweets authored by the authenticating user that have bee
 Twitter::getStatusesRetweetsOfMe($parameters, $multipart, $appOnlyAuth);
 ```
 
+#### Tweets
+ 
+##### GET statuses/retweets/:id
 
+Returns a collection of the 100 most recent retweets of the tweet specified by the id parameter.
+
+```php
+Twitter::getStatusesRetweets($id, $parameters, $multipart, $appOnlyAuth);
+```
+
+##### GET statuses/show/:id
+
+Returns a single Tweet, specified by the id parameter. 
+
+```php
+Twitter::getStatusesShow($id, $parameters, $multipart, $appOnlyAuth);
+```
+
+##### POST statuses/destroy/:id
+
+Destroys the status specified by the required ID parameter. 
+
+```php
+Twitter::postStatusesDestroy($id, $parameters, $multipart, $appOnlyAuth);
+```
+
+##### POST statuses/update
+
+Updates the authenticating user's current status, also known as tweeting. 
+
+```php
+Twitter::postStatusesUpdate($parameters, $multipart, $appOnlyAuth);
+```
+
+##### POST statuses/retweet/:id
+
+Retweets a tweet.
+
+```php
+Twitter::postStatusesRetweet($id, $parameters, $multipart, $appOnlyAuth);
+```
+
+#### POST statuses/update_with_media
+
+Updates the authenticating user's current status and attaches media for upload.
+
+```php
+Twitter::postStatusesUpdateWithMedia($parameters, $appOnlyAuth);
+```
+
+#### GET statuses/oembed
+
+Returns information allowing the creation of an embedded representation of a Tweet on third party sites. 
+
+```php
+Twitter::getStatusesOembed($parameters, $multipart, $appOnlyAuth);
+```
+
+#### GET statuses/retweeters/ids
+
+Returns a collection of up to 100 user IDs belonging to users who have retweeted the tweet specified by the id parameter.
+
+```php
+Twitter::getStatusesRetweetersIds($parameters, $multipart, $appOnlyAuth);
+```
 
 ### License
 
