@@ -313,7 +313,7 @@ Retweets a tweet.
 Twitter::postStatusesRetweet($id, $parameters, $multipart, $appOnlyAuth);
 ```
 
-#### POST statuses/update_with_media
+##### POST statuses/update_with_media
 
 Updates the authenticating user's current status and attaches media for upload.
 
@@ -321,7 +321,7 @@ Updates the authenticating user's current status and attaches media for upload.
 Twitter::postStatusesUpdateWithMedia($parameters, $appOnlyAuth);
 ```
 
-#### GET statuses/oembed
+##### GET statuses/oembed
 
 Returns information allowing the creation of an embedded representation of a Tweet on third party sites. 
 
@@ -329,7 +329,7 @@ Returns information allowing the creation of an embedded representation of a Twe
 Twitter::getStatusesOembed($parameters, $multipart, $appOnlyAuth);
 ```
 
-#### GET statuses/retweeters/ids
+##### GET statuses/retweeters/ids
 
 Returns a collection of up to 100 user IDs belonging to users who have retweeted the tweet specified by the id parameter.
 
