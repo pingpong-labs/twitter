@@ -151,6 +151,34 @@ DELETE Request
 Twitter::delete('/me', $parameters);
 ```
 
+Set return format.
+```php
+Twitter::format('JSON');
+
+Twitter::format('OBJECT');
+
+Twitter::format('ARRAY');
+```
+
+Enable and disable curl.
+```php
+Twitter::enableCurl();
+
+Twitter::disableCurl();
+```
+
+Set connection and request timeout.
+```php
+Twitter::setConnectionTimeout(2000);
+
+Twitter::setTimeout(500);
+```
+
+Allows a Consumer application to exchange the OAuth Request Token for an OAuth Access Token with xAuth.
+```php
+Twitter::xAuth($username, $password);
+```
+
 ### Example
 
 Authenticate the user.
