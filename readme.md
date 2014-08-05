@@ -272,6 +272,8 @@ Twitter::getStatusesRetweetsOfMe($parameters, $multipart, $appOnlyAuth);
 ```
 
 #### Tweets
+
+Tweets are the atomic building blocks of Twitter, 140-character status updates with additional associated metadata.
  
 ##### GET statuses/retweets/:id
 
@@ -335,6 +337,66 @@ Returns a collection of up to 100 user IDs belonging to users who have retweeted
 
 ```php
 Twitter::getStatusesRetweetersIds($parameters, $multipart, $appOnlyAuth);
+```
+
+#### Search
+
+Find relevant Tweets based on queries performed by your users.
+
+##### GET search/tweets
+
+Returns a collection of relevant Tweets matching a specified query. 
+
+```php
+Twitter::getSearchTweets($parameters, $multipart, $appOnlyAuth);
+```
+
+#### Direct Messages
+
+Direct Messages are short, non-public messages sent between two users.
+
+```php
+Twitter::getSearchTweets($parameters, $multipart, $appOnlyAuth);
+```
+
+##### GET direct_messages
+
+Returns the 20 most recent direct messages sent to the authenticating user. 
+
+```php
+Twitter::getDirectMessages($parameters, $multipart, $appOnlyAuth);
+```
+
+##### GET direct_messages/sent
+
+Returns the 20 most recent direct messages sent by the authenticating user.
+
+```php
+Twitter::getDirectMessagesSent($parameters, $multipart, $appOnlyAuth);
+```
+
+##### GET direct_messages/show
+
+Returns a single direct message, specified by an id parameter. 
+
+```php
+Twitter::getDirectMessagesShow($parameters, $multipart, $appOnlyAuth);
+```
+
+##### POST direct_messages/destroy
+
+Destroys the direct message specified in the required ID parameter. 
+
+```php
+Twitter::postDirectMessagesDestroy($parameters, $multipart, $appOnlyAuth);
+```
+
+##### POST direct_messages/new
+
+Sends a new direct message to the specified user from the authenticating user.
+
+```php
+Twitter::postDirectMessagesNew($parameters, $multipart, $appOnlyAuth);
 ```
 
 ### License
