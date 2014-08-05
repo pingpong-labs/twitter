@@ -454,6 +454,8 @@ Favorites the status specified in the ID parameter as the authenticating user.
 Twitter::postFavoritesCreate($parameters, $multipart, $appOnlyAuth);
 ```
 
+**NOTE: Not all functions and Facade APIs documented**
+
 ### License
 
 This package is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
