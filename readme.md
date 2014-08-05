@@ -250,21 +250,21 @@ Returns the 20 most recent mentions (tweets containing a users's @screen_name) f
 Twitter::getStatusesMentionsTimeline($parameters, $multipart, $appOnlyAuth);
 ```
 
-##### GET statuses/user_timeline
+###### GET statuses/user_timeline
 
 Returns a collection of the most recent Tweets posted by the user indicated by the screen_name or user_id parameters.
 
 ```php
 Twitter::getStatusesUserTimeline($parameters, $multipart, $appOnlyAuth);
 ```
-##### GET statuses/home_timeline
+###### GET statuses/home_timeline
 
 Returns a collection of the most recent Tweets and retweets posted by the authenticating user and the users they follow. 
 
 ```php
 Twitter::getStatusesHomeTimeline($parameters, $multipart, $appOnlyAuth);
 ```
-##### GET statuses/retweet_of_me
+###### GET statuses/retweet_of_me
 
 Returns the most recent tweets authored by the authenticating user that have been retweeted by others. 
 
@@ -276,7 +276,7 @@ Twitter::getStatusesRetweetsOfMe($parameters, $multipart, $appOnlyAuth);
 
 Tweets are the atomic building blocks of Twitter, 140-character status updates with additional associated metadata.
  
-##### GET statuses/retweets/:id
+###### GET statuses/retweets/:id
 
 Returns a collection of the 100 most recent retweets of the tweet specified by the id parameter.
 
@@ -284,7 +284,7 @@ Returns a collection of the 100 most recent retweets of the tweet specified by t
 Twitter::getStatusesRetweets($id, $parameters, $multipart, $appOnlyAuth);
 ```
 
-##### GET statuses/show/:id
+###### GET statuses/show/:id
 
 Returns a single Tweet, specified by the id parameter. 
 
@@ -292,7 +292,7 @@ Returns a single Tweet, specified by the id parameter.
 Twitter::getStatusesShow($id, $parameters, $multipart, $appOnlyAuth);
 ```
 
-##### POST statuses/destroy/:id
+###### POST statuses/destroy/:id
 
 Destroys the status specified by the required ID parameter. 
 
@@ -300,7 +300,7 @@ Destroys the status specified by the required ID parameter.
 Twitter::postStatusesDestroy($id, $parameters, $multipart, $appOnlyAuth);
 ```
 
-##### POST statuses/update
+###### POST statuses/update
 
 Updates the authenticating user's current status, also known as tweeting. 
 
@@ -308,7 +308,7 @@ Updates the authenticating user's current status, also known as tweeting.
 Twitter::postStatusesUpdate($parameters, $multipart, $appOnlyAuth);
 ```
 
-##### POST statuses/retweet/:id
+###### POST statuses/retweet/:id
 
 Retweets a tweet.
 
@@ -316,7 +316,7 @@ Retweets a tweet.
 Twitter::postStatusesRetweet($id, $parameters, $multipart, $appOnlyAuth);
 ```
 
-##### POST statuses/update_with_media
+###### POST statuses/update_with_media
 
 Updates the authenticating user's current status and attaches media for upload.
 
@@ -324,7 +324,7 @@ Updates the authenticating user's current status and attaches media for upload.
 Twitter::postStatusesUpdateWithMedia($parameters, $appOnlyAuth);
 ```
 
-##### GET statuses/oembed
+###### GET statuses/oembed
 
 Returns information allowing the creation of an embedded representation of a Tweet on third party sites. 
 
@@ -332,7 +332,7 @@ Returns information allowing the creation of an embedded representation of a Twe
 Twitter::getStatusesOembed($parameters, $multipart, $appOnlyAuth);
 ```
 
-##### GET statuses/retweeters/ids
+###### GET statuses/retweeters/ids
 
 Returns a collection of up to 100 user IDs belonging to users who have retweeted the tweet specified by the id parameter.
 
@@ -344,7 +344,7 @@ Twitter::getStatusesRetweetersIds($parameters, $multipart, $appOnlyAuth);
 
 Find relevant Tweets based on queries performed by your users.
 
-##### GET search/tweets
+###### GET search/tweets
 
 Returns a collection of relevant Tweets matching a specified query. 
 
@@ -352,7 +352,7 @@ Returns a collection of relevant Tweets matching a specified query.
 Twitter::getSearchTweets($parameters, $multipart, $appOnlyAuth);
 ```
 
-#### Direct Messages
+###### Direct Messages
 
 Direct Messages are short, non-public messages sent between two users.
 
@@ -360,7 +360,7 @@ Direct Messages are short, non-public messages sent between two users.
 Twitter::getSearchTweets($parameters, $multipart, $appOnlyAuth);
 ```
 
-##### GET direct_messages
+###### GET direct_messages
 
 Returns the 20 most recent direct messages sent to the authenticating user. 
 
@@ -368,7 +368,7 @@ Returns the 20 most recent direct messages sent to the authenticating user.
 Twitter::getDirectMessages($parameters, $multipart, $appOnlyAuth);
 ```
 
-##### GET direct_messages/sent
+###### GET direct_messages/sent
 
 Returns the 20 most recent direct messages sent by the authenticating user.
 
@@ -376,7 +376,7 @@ Returns the 20 most recent direct messages sent by the authenticating user.
 Twitter::getDirectMessagesSent($parameters, $multipart, $appOnlyAuth);
 ```
 
-##### GET direct_messages/show
+###### GET direct_messages/show
 
 Returns a single direct message, specified by an id parameter. 
 
@@ -384,7 +384,7 @@ Returns a single direct message, specified by an id parameter.
 Twitter::getDirectMessagesShow($parameters, $multipart, $appOnlyAuth);
 ```
 
-##### POST direct_messages/destroy
+###### POST direct_messages/destroy
 
 Destroys the direct message specified in the required ID parameter. 
 
@@ -392,7 +392,7 @@ Destroys the direct message specified in the required ID parameter.
 Twitter::postDirectMessagesDestroy($parameters, $multipart, $appOnlyAuth);
 ```
 
-##### POST direct_messages/new
+###### POST direct_messages/new
 
 Sends a new direct message to the specified user from the authenticating user.
 
