@@ -400,6 +400,30 @@ Sends a new direct message to the specified user from the authenticating user.
 Twitter::postDirectMessagesNew($parameters, $multipart, $appOnlyAuth);
 ```
 
+#### Favorites
+Users favorite tweets to give recognition to awesome tweets, to curate the best of Twitter, to save for reading later, and a variety of other reasons. Likewise, developers make use of "favs" in many different ways.
+
+###### GET favorites/list
+Returns the 20 most recent Tweets favorited by the authenticating or specified user.
+
+```php
+Twitter::getFavoritesList($parameters, $multipart, $appOnlyAuth);
+```
+	
+###### POST favorites/destroy
+Un-favorites the status specified in the ID parameter as the authenticating user. 
+
+```php
+Twitter::postFavoritesDestroy($parameters, $multipart, $appOnlyAuth);
+```
+
+###### POST favorites/create
+Favorites the status specified in the ID parameter as the authenticating user.
+
+```php
+Twitter::postFavoritesCreate($parameters, $multipart, $appOnlyAuth);
+```
+
 ### License
 
 This package is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
