@@ -27,5 +27,10 @@
             "Pingpong\\Twitter": "src/"
         }
     },
-    "minimum-stability": "stable"
+    "extra": {
+        "branch-alias": {
+            "dev-master": "dev-develop"
+        }
+    },
+    "minimum-stability": "dev"
 }
