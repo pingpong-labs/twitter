@@ -1,0 +1,31 @@
+{
+    "name": "pingpong/twitter",
+    "description": "Simple Twitter API for Laravel 4",
+    "keywords": ["twitter", "pingpong", "oauth", "laravel"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pingpong Labs",
+            "email": "gue.warsono@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.*",
+        "illuminate/session": "4.*",
+        "illuminate/config": "4.*",
+        "illuminate/routing": "4.*",
+        "illuminate/http": "4.*",
+        "jublonet/codebird-php": "2.5.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.1.*",
+        "mockery/mockery": "0.9.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Pingpong\\Twitter": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
