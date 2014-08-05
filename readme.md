@@ -1,4 +1,5 @@
-### Simple Twitter OAuth for Laravel 4
+Simple Twitter OAuth for Laravel 4
+==================================
 
 ### Server Requirements
 
