@@ -1,6 +1,8 @@
 Simple Twitter OAuth for Laravel 4
 ==================================
 
+[![Build Status](https://travis-ci.org/pingpong-labs/twitter.svg)](https://travis-ci.org/pingpong-labs/twitter)
+
 ### Server Requirements
 
     Require PHP 5.4+ or higher.
