@@ -478,7 +478,7 @@ class Twitter {
      */
     public function getFallbackUrl()
     {
-        return $this->config->get("twitter::fallback_url");
+        return $this->fallbackUrl ?: $this->config->get("twitter::fallback_url");
     }
 
     /**
