@@ -60,13 +60,13 @@ return array(
 Authorize the user.
 
 ```php
-	Twitter::authorize();
+Twitter::authorize();
 ```
 
 Authenticate the user.
 
 ```php
-	Twitter::authenticate();
+Twitter::authenticate();
 ```
 
 You can also override the callback url when authorize or authenticate the user.
@@ -235,6 +235,37 @@ Route::get('twitter/upload', function()
 });
 ```
 
+### REST API v1.1 Resources
+
+##### GET statuses/mentions_timeline
+
+Returns the 20 most recent mentions (tweets containing a users's @screen_name) for the authenticating user.
+
+```php
+Twitter::getStatusesMentionsTimeline();
+```
+
+#### GET statuses/user_timeline
+
+Returns a collection of the most recent Tweets posted by the user indicated by the screen_name or user_id parameters.
+
+```php
+Twitter::getStatusesUserTimeline();
+```
+#### GET statuses/home_timeline
+
+Returns a collection of the most recent Tweets and retweets posted by the authenticating user and the users they follow. 
+
+```php
+Twitter::getStatusesHomeTimeline();
+```
+#### GET statuses/retweet_of_me
+
+Returns the most recent tweets authored by the authenticating user that have been retweeted by others. 
+
+```php
+Twitter::getStatusesRetweetsOfMe();
+```
 ### License
 
 This package is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
