@@ -237,12 +237,16 @@ Route::get('twitter/upload', function()
 
 ### REST API v1.1 Resources
 
+#### Timelines
+
+Timelines are collections of Tweets, ordered with the most recent first.
+
 ##### GET statuses/mentions_timeline
 
 Returns the 20 most recent mentions (tweets containing a users's @screen_name) for the authenticating user.
 
 ```php
-Twitter::getStatusesMentionsTimeline();
+Twitter::getStatusesMentionsTimeline($parameters, $multipart, $appOnlyAuth);
 ```
 
 #### GET statuses/user_timeline
@@ -250,22 +254,25 @@ Twitter::getStatusesMentionsTimeline();
 Returns a collection of the most recent Tweets posted by the user indicated by the screen_name or user_id parameters.
 
 ```php
-Twitter::getStatusesUserTimeline();
+Twitter::getStatusesUserTimeline($parameters, $multipart, $appOnlyAuth);
 ```
 #### GET statuses/home_timeline
 
 Returns a collection of the most recent Tweets and retweets posted by the authenticating user and the users they follow. 
 
 ```php
-Twitter::getStatusesHomeTimeline();
+Twitter::getStatusesHomeTimeline($parameters, $multipart, $appOnlyAuth);
 ```
 #### GET statuses/retweet_of_me
 
 Returns the most recent tweets authored by the authenticating user that have been retweeted by others. 
 
 ```php
-Twitter::getStatusesRetweetsOfMe();
+Twitter::getStatusesRetweetsOfMe($parameters, $multipart, $appOnlyAuth);
 ```
+
+
+
 ### License
 
 This package is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
