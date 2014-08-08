@@ -1,9 +1,5 @@
 <?php namespace Pingpong\Twitter\Traits;
 
-/**
- * Class DirectMessagesTrait
- * @package Pingpong\Twitter\Traits
- */
 trait DirectMessagesTrait {
 
     /**

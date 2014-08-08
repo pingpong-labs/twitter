@@ -6,6 +6,7 @@ use Illuminate\Config\Repository;
 use Illuminate\Routing\Redirector;
 use Pingpong\Twitter\Traits\GeoTrait;
 use Pingpong\Twitter\Traits\HelpTrait;
+use Pingpong\Twitter\Traits\HumanTrait;
 use Pingpong\Twitter\Traits\UsersTrait;
 use Pingpong\Twitter\Traits\TrendsTrait;
 use Pingpong\Twitter\Traits\TweetsTrait;
@@ -23,7 +24,7 @@ use Pingpong\Twitter\Traits\FriendsAndFollowersTrait;
 class Twitter {
 
     use TweetsTrait, StatusesTrait, SearchTrait, DirectMessagesTrait, FriendsAndFollowersTrait, UsersTrait,
-        FavoritesTrait, GeoTrait, TrendsTrait, HelpTrait;
+        FavoritesTrait, GeoTrait, TrendsTrait, HelpTrait, HumanTrait;
 
     /**
      * The Base Twitter Api Instance.
@@ -192,7 +193,7 @@ class Twitter {
         }
         elseif ( ! is_null($oauthToken) && ! is_null($oauthTokenSecret) )
         {
-            $this->twitter->setToken($oauthToken, $oauthTokenSecret);
+            $this->setToken($oauthToken, $oauthTokenSecret);
         }
         elseif ($this->hasSessionToken())
         {
@@ -378,7 +379,7 @@ class Twitter {
             $token = $this->response->oauth_token;
             $token_secret = $this->response->oauth_token_secret;
 
-            $this->twitter->setToken($token, $token_secret);
+            $this->setToken($token, $token_secret);
 
             $this->session->put('oauth_request_token', $token);
             $this->session->put('oauth_request_token_secret', $token_secret);
@@ -550,7 +551,21 @@ class Twitter {
         $token = $this->session->get('twitter.oauth_token');
         $tokenSecret = $this->session->get('twitter.oauth_token_secret');
 
+        $this->setToken($token, $tokenSecret);
+    }
+
+    /**
+     * Set oauth token.
+     *
+     * @param $token
+     * @param $tokenSecret
+     * @return $this
+     */
+    public function setToken($token, $tokenSecret)
+    {
         $this->twitter->setToken($token, $tokenSecret);
+
+        return $this;
     }
 
     /**

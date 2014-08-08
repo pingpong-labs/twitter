@@ -1,9 +1,5 @@
 <?php namespace Pingpong\Twitter\Traits;
 
-/**
- * Class HumanTrait
- * @package Pingpong\Twitter\Traits
- */
 trait HumanTrait {
 
     /**
