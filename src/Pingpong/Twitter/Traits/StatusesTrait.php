@@ -27,7 +27,7 @@ trait StatusesTrait {
      * @param bool $appOnlyAuth
      * @return mixed
      */
-    public function getStatusesUsersTimeline(array $parameters = array(), $multipart = false, $appOnlyAuth = false)
+    public function getStatusesUserTimeline(array $parameters = array(), $multipart = false, $appOnlyAuth = false)
     {
         return $this->get('statuses/user_timeline', $parameters, $multipart, $appOnlyAuth);
     }
