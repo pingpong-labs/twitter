@@ -6,6 +6,7 @@ use Illuminate\Config\Repository;
 use Illuminate\Routing\Redirector;
 use Pingpong\Twitter\Traits\GeoTrait;
 use Pingpong\Twitter\Traits\HelpTrait;
+use Pingpong\Twitter\Traits\HumanTrait;
 use Pingpong\Twitter\Traits\UsersTrait;
 use Pingpong\Twitter\Traits\TrendsTrait;
 use Pingpong\Twitter\Traits\TweetsTrait;
@@ -23,7 +24,7 @@ use Pingpong\Twitter\Traits\FriendsAndFollowersTrait;
 class Twitter {
 
     use TweetsTrait, StatusesTrait, SearchTrait, DirectMessagesTrait, FriendsAndFollowersTrait, UsersTrait,
-        FavoritesTrait, GeoTrait, TrendsTrait, HelpTrait;
+        FavoritesTrait, GeoTrait, TrendsTrait, HelpTrait, HumanTrait;
 
     /**
      * The Base Twitter Api Instance.
