@@ -1,9 +1,5 @@
 <?php namespace Pingpong\Twitter\Traits;
 
-/**
- * Class TimelinesTrait
- * @package Pingpong\Twitter\Traits
- */
 trait StatusesTrait {
 
     /**

@@ -1,9 +1,5 @@
 <?php namespace Pingpong\Twitter\Traits;
 
-/**
- * Class GeoTrait
- * @package Pingpong\Twitter\Traits
- */
 trait GeoTrait {
 
     /**
