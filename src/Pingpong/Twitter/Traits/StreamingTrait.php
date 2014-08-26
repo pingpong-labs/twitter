@@ -1,5 +1,7 @@
 <?php namespace Pingpong\Twitter\Traits;
 
+// TODO : Add streaming feature
+
 trait StreamingTrait {
 
     public function postStatusesFilter()
