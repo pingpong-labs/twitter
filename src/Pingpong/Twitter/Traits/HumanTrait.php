@@ -42,7 +42,7 @@ trait HumanTrait {
     {
         $data = array('status' => $status, 'media[]' => $media) + $parameters;
 
-        return $this->postSpostStatusesUpdateWithMedia($data, $appOnlyAuth);
+        return $this->postStatusesUpdateWithMedia($data, $appOnlyAuth);
     }
 
     /**
