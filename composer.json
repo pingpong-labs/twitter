@@ -2,7 +2,7 @@
     "name": "pingpong/twitter",
     "description": "Simple Twitter API for Laravel 4",
     "keywords": ["twitter", "pingpong", "oauth", "laravel"],
-    "license": "MIT",
+    "license": "BSD-3-Clause",
     "authors": [
         {
             "name": "Pingpong Labs",
