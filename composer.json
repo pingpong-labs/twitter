@@ -11,11 +11,11 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "illuminate/support": "4.*",
-        "illuminate/session": "4.*",
-        "illuminate/config": "4.*",
-        "illuminate/routing": "4.*",
-        "illuminate/http": "4.*",
+        "illuminate/support": "~4|~5",
+        "illuminate/session": "~4|~5",
+        "illuminate/config": "~4|~5",
+        "illuminate/routing": "~4|~5",
+        "illuminate/http": "~4|~5",
         "jublonet/codebird-php": "2.5.*"
     },
     "require-dev": {
