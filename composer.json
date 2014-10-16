@@ -16,7 +16,6 @@
         "illuminate/config": "~4|~5",
         "illuminate/routing": "~4|~5",
         "illuminate/http": "~4|~5",
-        "jublonet/codebird-php": "2.5.*"
     },
     "require-dev": {
         "phpunit/phpunit": "4.1.*",
