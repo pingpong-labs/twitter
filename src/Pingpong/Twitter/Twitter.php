@@ -372,6 +372,10 @@ class Twitter {
     {
         $callback = $url ?: $this->getCallbackUrl();
 
+        $this->destroy();
+
+        $this->twitter->setToken(null, null);
+
         $this->response = $this->api('POST', 'oauth/request_token', array('oauth_callback' => $callback));
 
         if ( $this->responseOk() )
@@ -511,10 +515,7 @@ class Twitter {
      */
     public function destroy()
     {
-        $this->session->forget('twitter.user_id');
-        $this->session->forget('twitter.screen_name');
-        $this->session->forget('twitter.oauth_token');
-        $this->session->forget('twitter.oauth_token_secret');
+        $this->session->forget('twitter');
     }
 
     /**
@@ -530,6 +531,7 @@ class Twitter {
 
             return true;
         }
+
         return false;
     }
 
