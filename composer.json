@@ -11,16 +11,16 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "illuminate/support": "4.*",
-        "illuminate/session": "4.*",
-        "illuminate/config": "4.*",
-        "illuminate/routing": "4.*",
-        "illuminate/http": "4.*",
-        "jublonet/codebird-php": "2.5.*"
+        "illuminate/support": "4.*|~5",
+        "illuminate/session": "4.*|~5",
+        "illuminate/config": "4.*|~5",
+        "illuminate/routing": "4.*|~5",
+        "illuminate/http": "4.*|~5",
+        "jublonet/codebird-php": "~2"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.1.*",
-        "mockery/mockery": "0.9.*"
+        "phpunit/phpunit": "~4",
+        "mockery/mockery": "~0.9"
     },
     "autoload": {
         "psr-0": {
