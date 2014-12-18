@@ -1,4 +1,4 @@
-OAuth Twitter API for Laravel
+Twitter OAuth for Laravel
 ==================================
 
 [![Build Status](https://travis-ci.org/pingpong-labs/twitter.svg)](https://travis-ci.org/pingpong-labs/twitter)
