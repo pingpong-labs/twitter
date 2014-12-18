@@ -6,6 +6,7 @@ Twitter OAuth for Laravel
 [![Total Downloads](https://poser.pugx.org/pingpong/twitter/downloads.svg)](https://packagist.org/packages/pingpong/twitter)
 [![Latest Unstable Version](https://poser.pugx.org/pingpong/twitter/v/unstable.svg)](https://packagist.org/packages/pingpong/twitter)
 [![License](https://poser.pugx.org/pingpong/twitter/license.svg)](https://packagist.org/packages/pingpong/twitter)
+[![HHVM Status](http://hhvm.h4cc.de/badge/pingpong/twitter.svg)](http://hhvm.h4cc.de/package/pingpong/twitter)
 
 ### Server Requirements
 
