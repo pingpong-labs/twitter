@@ -1,7 +1,11 @@
-Simple Twitter OAuth for Laravel 4
+OAuth Twitter API for Laravel
 ==================================
 
 [![Build Status](https://travis-ci.org/pingpong-labs/twitter.svg)](https://travis-ci.org/pingpong-labs/twitter)
+[![Latest Stable Version](https://poser.pugx.org/pingpong/twitter/v/stable.svg)](https://packagist.org/packages/pingpong/twitter)
+[![Total Downloads](https://poser.pugx.org/pingpong/twitter/downloads.svg)](https://packagist.org/packages/pingpong/twitter)
+[![Latest Unstable Version](https://poser.pugx.org/pingpong/twitter/v/unstable.svg)](https://packagist.org/packages/pingpong/twitter)
+[![License](https://poser.pugx.org/pingpong/twitter/license.svg)](https://packagist.org/packages/pingpong/twitter)
 
 ### Server Requirements
 
