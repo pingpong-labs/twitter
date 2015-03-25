@@ -82,7 +82,7 @@ trait TweetsTrait {
      */
     public function postStatusesUpdateWithMedia(array $parameters = array(), $appOnlyAuth = false)
     {
-        return $this->post("statuses/update_with_media", $parameters, $appOnlyAuth, true, $appOnlyAuth);
+        return $this->post("statuses/update_with_media", $parameters, true, $appOnlyAuth);
     }
 
     /**
