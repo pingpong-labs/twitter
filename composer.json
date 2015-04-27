@@ -23,8 +23,8 @@
         "mockery/mockery": "~0.9"
     },
     "autoload": {
-        "psr-0": {
-            "Pingpong\\Twitter": "src/"
+        "psr-4": {
+            "Pingpong\\Twitter\\": "src/Pingpong/Twitter"
         }
     },
     "minimum-stability": "stable"
