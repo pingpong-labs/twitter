@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Mockery as m;
 use Pingpong\Twitter\Twitter;
 
@@ -43,21 +44,39 @@ class TwitterTest extends PHPUnit_Framework_TestCase
 
     function testInit()
     {
+        $config = require __DIR__ . '/../src/config/config.php';
         $this->assertInstanceOf('Pingpong\Twitter\Twitter', $this->twitter);
+    }
+
+    public function getDummyUrlGenerator()
+    {
+        return new Illuminate\Routing\UrlGenerator(
+            new Illuminate\Routing\RouteCollection,
+            new Request
+        );
     }
 
     function testGetCallbackUrl()
     {
-        $this->config->shouldReceive('get')->once()->with('twitter::callback_url')->andReturn('twitter/callback');
+        $this->config->shouldReceive('get')->once()->with('twitter.callback_url')->andReturn('twitter/callback');
+        $this->redirect
+            ->shouldReceive('getUrlGenerator')
+            ->once()
+            ->andReturn($this->getDummyUrlGenerator());
+    
         $callbackUrl = $this->twitter->getCallbackUrl();
-        $this->assertEquals('twitter/callback', $callbackUrl);
+        $this->assertEquals('http://:/twitter/callback', $callbackUrl);
     }
 
     function testGetFallbackUrl()
     {
-        $this->config->shouldReceive('get')->once()->with('twitter::fallback_url')->andReturn('/');
+        $this->config->shouldReceive('get')->once()->with('twitter.fallback_url')->andReturn('/');
+         $this->redirect
+            ->shouldReceive('getUrlGenerator')
+            ->once()
+            ->andReturn($this->getDummyUrlGenerator());
         $url = $this->twitter->getFallbackUrl();
-        $this->assertEquals('/', $url);
+        $this->assertEquals('http://:', $url);
     }
 
     function testGetAuthorizeUrl()
@@ -73,7 +92,6 @@ class TwitterTest extends PHPUnit_Framework_TestCase
      */
     function testAuthorization()
     {
-        $this->config->shouldReceive('get')->once()->with('twitter::callback_url')->andReturn('twitter/callback');
         $apiResponse = (object) array(
             'oauth_token' => 'bla',
             'oauth_token_secret' => 'bla',

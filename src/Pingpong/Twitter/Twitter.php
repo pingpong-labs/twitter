@@ -313,13 +313,25 @@ class Twitter {
     }
 
     /**
+     * Get UrlGenerator instance.
+     * 
+     * @return \Iluminate\Routing\UrlGenerator
+     */
+    public function getUrlGenerator()
+    {
+        return $this->redirect->getUrlGenerator();
+    }
+
+    /**
      * Get callback url.
      *
      * @return mixed
      */
     public function getCallbackUrl()
     {
-        return $this->callbackUrl ?: $this->config->get("twitter::callback_url");
+        return $this->getUrlGenerator()->to(
+            $this->callbackUrl ?: $this->config->get("twitter.callback_url")
+        );
     }
 
     /**
@@ -490,7 +502,9 @@ class Twitter {
      */
     public function getFallbackUrl()
     {
-        return $this->fallbackUrl ?: $this->config->get("twitter::fallback_url");
+        return $this->getUrlGenerator()->to(
+            $this->fallbackUrl ?: $this->config->get("twitter.fallback_url")
+        );
     }
 
     /**
