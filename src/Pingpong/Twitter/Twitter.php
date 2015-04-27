@@ -31,7 +31,7 @@ class Twitter {
      *
      * @var string
      */
-    const VERSION = '2.0-dev';
+    const VERSION = '2.0.0';
 
     /**
      * The Base Twitter Api Instance.
