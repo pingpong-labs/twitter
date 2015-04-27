@@ -73,11 +73,11 @@ class Twitter {
      *
      * @var array
      */
-    protected $format = array(
+    protected $format = [
         'OBJECT',
         'JSON',
         'ARRAY'
-    );
+    ];
 
     /**
      * @var null|string

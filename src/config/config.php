@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 	'consumer_key'		=>	'',
 	'consumer_secret'	=>  '',
 	
@@ -11,4 +11,4 @@ return array(
 	
 	'callback_url'		=>  url('twitter/callback'),
     'fallback_url'      =>  url('/')
-);
+];
