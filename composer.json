@@ -11,11 +11,7 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "illuminate/support": "5.0.*",
-        "illuminate/session": "5.0.*",
-        "illuminate/config": "5.0.*",
-        "illuminate/routing": "5.0.*",
-        "illuminate/http": "5.0.*",
+        "laravel/framework": "5.0.*",
         "jublonet/codebird-php": "~2"
     },
     "require-dev": {
