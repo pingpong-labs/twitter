@@ -14,10 +14,12 @@ Twitter OAuth for Laravel
     
 ### Installation
 
+> For Laravel 4.* please use version `1.*`.
+
 Open your composer.json file, and add the new required package.
 
 ```
-  "pingpong/twitter": "1.0.*" 
+  "pingpong/twitter": "~2" 
 ```
 
 Next, open a terminal and run.
@@ -41,7 +43,7 @@ Next, Add new alias.
 Next, open a terminal and run.
 
 ```
-  php artisan config:publish pingpong/twitter 
+  php artisan vendor:publish --provider="Pingpong\Twitter\TwitterServiceProvider" 
 ```
 
 Done.
