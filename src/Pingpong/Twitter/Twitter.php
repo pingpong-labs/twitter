@@ -27,6 +27,13 @@ class Twitter {
         FavoritesTrait, GeoTrait, TrendsTrait, HelpTrait, HumanTrait;
 
     /**
+     * The package version.
+     *
+     * @var string
+     */
+    const VERSION = '2.0-dev';
+
+    /**
      * The Base Twitter Api Instance.
      *
      * @var Api
