@@ -19,7 +19,13 @@ class TwitterServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('pingpong/twitter');
+		$configPath = config_path('twitter.php');
+
+		$this->publishes([
+			__DIR__ . '/../../config/config.php' => $configPath
+		]);
+
+		$this->mergeConfigFrom($configPath, 'twitter');
 	}
 
 	/**
@@ -33,7 +39,7 @@ class TwitterServiceProvider extends ServiceProvider {
 		{
 			$api = new Api;
 
-            $config = $app['config']->get('twitter::config');
+            $config = $app['config']->get('twitter');
 
 			return new Twitter(
                 $api,
