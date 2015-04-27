@@ -11,7 +11,7 @@ class Twitter extends Facade {
 	 */
 	protected static function getFacadeAccessor()
 	{
-		return 'pingpong.twitter';
+		return 'twitter';
 	}
 	
 } 

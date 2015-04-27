@@ -35,7 +35,7 @@ class TwitterServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app['pingpong.twitter'] = $this->app->share(function($app)
+		$this->app['twitter'] = $this->app->share(function($app)
 		{
 			$api = new Api;
 
@@ -65,7 +65,7 @@ class TwitterServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array('pingpong.twitter');
+		return array('twitter');
 	}
 
 }
