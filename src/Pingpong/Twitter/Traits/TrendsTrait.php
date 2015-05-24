@@ -1,6 +1,7 @@
 <?php namespace Pingpong\Twitter\Traits;
 
-trait TrendsTrait {
+trait TrendsTrait
+{
 
     /**
      * Returns the top 10 trending topics for a specific WOEID, if trending information is available for it.
@@ -40,4 +41,4 @@ trait TrendsTrait {
     {
         return $this->get('trends/closest', $parameters, $multipart, $appOnlyAuth);
     }
-} 
+}

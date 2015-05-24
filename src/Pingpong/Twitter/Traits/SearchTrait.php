@@ -1,6 +1,7 @@
 <?php namespace Pingpong\Twitter\Traits;
 
-trait SearchTrait {
+trait SearchTrait
+{
 
     /**
      * Returns a collection of relevant Tweets matching a specified query.
@@ -68,4 +69,4 @@ trait SearchTrait {
     {
         return $this->get("saved_searches/destroy/{$id}", $parameters, $multipart, $appOnlyAuth);
     }
-} 
+}

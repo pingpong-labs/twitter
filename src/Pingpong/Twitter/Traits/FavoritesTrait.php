@@ -1,6 +1,7 @@
 <?php namespace Pingpong\Twitter\Traits;
 
-trait FavoritesTrait {
+trait FavoritesTrait
+{
 
     /**
      * Returns the 20 most recent Tweets favorited by the authenticating or specified user.
@@ -42,4 +43,4 @@ trait FavoritesTrait {
     {
         return $this->post('account/settings', $parameters, $multipart, $appOnlyAuth);
     }
-} 
+}

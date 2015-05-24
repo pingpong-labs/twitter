@@ -1,6 +1,7 @@
 <?php namespace Pingpong\Twitter\Traits;
 
-trait DirectMessagesTrait {
+trait DirectMessagesTrait
+{
 
     /**
      * Returns the 20 most recent direct messages sent to the authenticating user.
@@ -27,7 +28,6 @@ trait DirectMessagesTrait {
      */
     public function getDirectMessagesSent(array $parameters = array(), $multipart = false, $appOnlyAuth = false)
     {
-
         return $this->get('direct_messages/sent', $parameters, $multipart, $appOnlyAuth);
     }
 
@@ -41,7 +41,6 @@ trait DirectMessagesTrait {
      */
     public function getDirectMessagesShow(array $parameters = array(), $multipart = false, $appOnlyAuth = false)
     {
-
         return $this->get('direct_messages/show', $parameters, $multipart, $appOnlyAuth);
     }
 

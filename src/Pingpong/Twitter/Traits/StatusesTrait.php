@@ -1,6 +1,7 @@
 <?php namespace Pingpong\Twitter\Traits;
 
-trait StatusesTrait {
+trait StatusesTrait
+{
 
     /**
      * Returns the 20 most recent mentions (tweets containing a users's @screen_name) for the authenticating user.
@@ -66,5 +67,4 @@ trait StatusesTrait {
     {
         return $this->get('statuses/lookup', $parameters, $multipart, $appOnlyAuth);
     }
-
-} 
+}

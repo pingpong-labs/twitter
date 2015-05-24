@@ -1,6 +1,7 @@
 <?php namespace Pingpong\Twitter\Traits;
 
-trait FriendsAndFollowersTrait {
+trait FriendsAndFollowersTrait
+{
 
     /**
      * Returns a collection of user_ids that the currently authenticated user does not want to receive retweets from.
@@ -160,4 +161,4 @@ trait FriendsAndFollowersTrait {
     {
         return $this->get('friendships/lookup', $parameters, $multipart, $appOnlyAuth);
     }
-} 
+}

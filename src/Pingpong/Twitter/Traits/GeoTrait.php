@@ -1,6 +1,7 @@
 <?php namespace Pingpong\Twitter\Traits;
 
-trait GeoTrait {
+trait GeoTrait
+{
 
     /**
      * Search for places that can be attached to a statuses/update.
@@ -69,4 +70,4 @@ trait GeoTrait {
     {
         return $this->get("geo/id/{$placeId}", $parameters, $multipart, $appOnlyAuth);
     }
-} 
+}

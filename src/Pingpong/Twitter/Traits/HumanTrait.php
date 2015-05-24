@@ -1,6 +1,7 @@
 <?php namespace Pingpong\Twitter\Traits;
 
-trait HumanTrait {
+trait HumanTrait
+{
 
     /**
      * Allows the authenticating users to follow the user specified in the ID parameter.
@@ -60,5 +61,4 @@ trait HumanTrait {
 
         return $this->postStatusesUpdate($data, $multipart, $appOnlyAuth);
     }
-
-} 
+}

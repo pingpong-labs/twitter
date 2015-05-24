@@ -21,7 +21,8 @@ use Pingpong\Twitter\Traits\FriendsAndFollowersTrait;
  * Class Twitter
  * @package Pingpong\Twitter
  */
-class Twitter {
+class Twitter
+{
 
     use TweetsTrait, StatusesTrait, SearchTrait, DirectMessagesTrait, FriendsAndFollowersTrait, UsersTrait,
         FavoritesTrait, GeoTrait, TrendsTrait, HelpTrait, HumanTrait;
@@ -162,8 +163,7 @@ class Twitter {
         $bearerToken = null,
         $callbackUrl = null,
         $fallbackUrl = null
-    )
-    {
+    ) {
         $this->twitter = $twitter;
         $this->session = $session;
         $this->config = $config;
@@ -194,16 +194,11 @@ class Twitter {
     {
         $this->twitter->setConsumerKey($consumerKey, $consumerSecret);
 
-        if ( ! is_null($bearerToken) )
-        {
+        if (! is_null($bearerToken)) {
             $this->setBearerToken($bearerToken);
-        }
-        elseif ( ! is_null($oauthToken) && ! is_null($oauthTokenSecret) )
-        {
+        } elseif (! is_null($oauthToken) && ! is_null($oauthTokenSecret)) {
             $this->setToken($oauthToken, $oauthTokenSecret);
-        }
-        elseif ($this->hasSessionToken())
-        {
+        } elseif ($this->hasSessionToken()) {
             $this->setSessionToken();
         }
     }
@@ -215,8 +210,7 @@ class Twitter {
      */
     public function format($format)
     {
-        if ( in_array($format, $this->format) )
-        {
+        if (in_array($format, $this->format)) {
             $this->twitter->setReturnFormat($format);
         }
     }
@@ -314,7 +308,7 @@ class Twitter {
 
     /**
      * Get UrlGenerator instance.
-     * 
+     *
      * @return \Iluminate\Routing\UrlGenerator
      */
     public function getUrlGenerator()
@@ -397,8 +391,7 @@ class Twitter {
 
         $this->response = $this->api('POST', 'oauth/request_token', array('oauth_callback' => $callback));
 
-        if ( $this->responseOk() )
-        {
+        if ($this->responseOk()) {
             $token = $this->response->oauth_token;
             $token_secret = $this->response->oauth_token_secret;
 
@@ -445,12 +438,9 @@ class Twitter {
      */
     public function callback($fallback_url = null)
     {
-        if ( $this->request->has('denied') )
-        {
+        if ($this->request->has('denied')) {
             return $this->redirect->to($fallback_url ?: $this->getFallbackUrl());
-        }
-        elseif ( $this->request->has('oauth_verifier') && $this->session->has('oauth_request_verify') )
-        {
+        } elseif ($this->request->has('oauth_verifier') && $this->session->has('oauth_request_verify')) {
             $this->twitter->setToken(
                 $this->session->get('oauth_request_token'),
                 $this->session->get('oauth_request_token_secret')
@@ -462,24 +452,20 @@ class Twitter {
 
             $this->response = $this->twitter->api('POST', 'oauth/access_token', array('oauth_verifier' => $oauthVerifier));
 
-            if ( $this->responseOk() )
-            {
+            if ($this->responseOk()) {
                 $this->session->forget('oauth_request_token');
                 $this->session->forget('oauth_request_token_secret');
                 $this->session->forget('oauth_request_verify');
 
                 $data = array('oauth_token', 'oauth_token_secret', 'user_id', 'screen_name');
-                foreach ($data as $key)
-                {
+                foreach ($data as $key) {
                     $this->session->put("twitter.{$key}", $this->response->{$key});
                 }
 
                 return $this->response;
             }
             $this->triggerError("Invalid or expired token.");
-        }
-        else
-        {
+        } else {
             $this->triggerError("To perform callback, you must authorize the user first.");
         }
     }
@@ -546,8 +532,7 @@ class Twitter {
      */
     public function logout()
     {
-        if ( $this->check() )
-        {
+        if ($this->check()) {
             $this->destroy();
 
             return true;
@@ -602,8 +587,7 @@ class Twitter {
     {
         $this->response = $this->twitter->oauth2_token();
 
-        if ( $this->responseOk() )
-        {
+        if ($this->responseOk()) {
             return $this->response->access_token;
         }
 

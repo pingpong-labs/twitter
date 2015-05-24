@@ -1,6 +1,7 @@
 <?php namespace Pingpong\Twitter\Traits;
 
-trait HelpTrait {
+trait HelpTrait
+{
 
     /**
      * Returns the current configuration used by Twitter including twitter.com slugs which are not usernames,
@@ -67,5 +68,4 @@ trait HelpTrait {
     {
         return $this->get("application/race_limit_status", $parameters, $multipart, $appOnlyAuth);
     }
-
-} 
+}

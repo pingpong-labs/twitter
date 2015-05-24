@@ -1,6 +1,7 @@
 <?php namespace Pingpong\Twitter\Traits;
 
-trait TweetsTrait {
+trait TweetsTrait
+{
 
     /**
      * Returns a collection of the 100 most recent retweets of the tweet specified by the id parameter.

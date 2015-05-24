@@ -6,7 +6,8 @@ use Codebird\Codebird;
  * Class Api
  * @package Pingpong\Twitter
  */
-class Api extends Codebird {
+class Api extends Codebird
+{
 
     /**
      * The Twitter Api Call.
@@ -21,8 +22,7 @@ class Api extends Codebird {
      * @throws \Exception
      */
     public function api($method, $path, $parameters = array(), $multipart = false, $appOnlyAuth = false, $internal = false)
-	{
-		return $this->_callApi($method, $path, $parameters, $multipart, $appOnlyAuth, $internal);
-	}
-
-} 
+    {
+        return $this->_callApi($method, $path, $parameters, $multipart, $appOnlyAuth, $internal);
+    }
+}
