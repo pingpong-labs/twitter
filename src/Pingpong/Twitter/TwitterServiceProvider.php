@@ -25,7 +25,9 @@ class TwitterServiceProvider extends ServiceProvider {
 			__DIR__ . '/../../config/config.php' => $configPath
 		]);
 
-		$this->mergeConfigFrom($configPath, 'twitter');
+		if (is_file($configPath)) {
+			$this->mergeConfigFrom($configPath, 'twitter');
+		}
 	}
 
 	/**
