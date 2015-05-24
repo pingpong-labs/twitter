@@ -163,6 +163,8 @@ Set return format.
 Twitter::format('json');
 
 Twitter::format('array');
+
+Twitter::format('object');
 ```
 
 Enable and disable curl.
