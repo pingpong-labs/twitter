@@ -126,7 +126,7 @@ class Twitter
 
     /**
      * The result format. Available: array, json.
-     * 
+     *
      * @var string
      */
     protected $format = 'array';
@@ -227,12 +227,12 @@ class Twitter
     {
         $result = $this->twitter->api($method, $path, $parameters, $multipart, $appOnlyAuth, $internal);
         
-        return $this->reformatResult($result); 
+        return $this->reformatResult($result);
     }
 
     /**
      * Reformat the result.
-     * 
+     *
      * @param  object $result
      * @return mixed
      */
