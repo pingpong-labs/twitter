@@ -160,11 +160,9 @@ Twitter::delete('/me', $parameters);
 
 Set return format.
 ```php
-Twitter::format('JSON');
+Twitter::format('json');
 
-Twitter::format('OBJECT');
-
-Twitter::format('ARRAY');
+Twitter::format('array');
 ```
 
 Enable and disable curl.
