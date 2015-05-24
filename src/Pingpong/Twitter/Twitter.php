@@ -1,21 +1,22 @@
 <?php namespace Pingpong\Twitter;
 
-use Illuminate\Http\Request;
-use Illuminate\Session\Store;
 use Illuminate\Config\Repository;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Session\Store;
+use Illuminate\Support\Collection;
+use Pingpong\Twitter\Exceptions\TwitterApiException;
+use Pingpong\Twitter\Traits\DirectMessagesTrait;
+use Pingpong\Twitter\Traits\FavoritesTrait;
+use Pingpong\Twitter\Traits\FriendsAndFollowersTrait;
 use Pingpong\Twitter\Traits\GeoTrait;
 use Pingpong\Twitter\Traits\HelpTrait;
 use Pingpong\Twitter\Traits\HumanTrait;
-use Pingpong\Twitter\Traits\UsersTrait;
-use Pingpong\Twitter\Traits\TrendsTrait;
-use Pingpong\Twitter\Traits\TweetsTrait;
 use Pingpong\Twitter\Traits\SearchTrait;
 use Pingpong\Twitter\Traits\StatusesTrait;
-use Pingpong\Twitter\Traits\FavoritesTrait;
-use Pingpong\Twitter\Traits\DirectMessagesTrait;
-use Pingpong\Twitter\Exceptions\TwitterApiException;
-use Pingpong\Twitter\Traits\FriendsAndFollowersTrait;
+use Pingpong\Twitter\Traits\TrendsTrait;
+use Pingpong\Twitter\Traits\TweetsTrait;
+use Pingpong\Twitter\Traits\UsersTrait;
 
 /**
  * Class Twitter
@@ -77,17 +78,6 @@ class Twitter
     protected $response = null;
 
     /**
-     * Return format.
-     *
-     * @var array
-     */
-    protected $format = [
-        'OBJECT',
-        'JSON',
-        'ARRAY'
-    ];
-
-    /**
      * @var null|string
      */
     private $fallbackUrl;
@@ -133,6 +123,13 @@ class Twitter
      * @var null|string
      */
     protected $callbackUrl;
+
+    /**
+     * The result format. Available: array, json.
+     * 
+     * @var string
+     */
+    protected $format = 'array';
 
     /**
      * The constructor.
@@ -210,9 +207,9 @@ class Twitter
      */
     public function format($format)
     {
-        if (in_array($format, $this->format)) {
-            $this->twitter->setReturnFormat($format);
-        }
+        $this->format = strtolower($format);
+        
+        return $this;
     }
 
     /**
@@ -228,7 +225,30 @@ class Twitter
      */
     public function api($method, $path, array $parameters = array(), $multipart = false, $appOnlyAuth = false, $internal = false)
     {
-        return $this->twitter->api($method, $path, $parameters, $multipart, $appOnlyAuth, $internal);
+        $result = $this->twitter->api($method, $path, $parameters, $multipart, $appOnlyAuth, $internal);
+        
+        return $this->reformatResult($result); 
+    }
+
+    /**
+     * Reformat the result.
+     * 
+     * @param  object $result
+     * @return mixed
+     */
+    public function reformatResult($result)
+    {
+        $collection = new Collection($result);
+        
+        switch ($this->format) {
+            case 'json':
+                return $collection->toJson();
+                break;
+            
+            default:
+                return $collection->toArray();
+                break;
+        }
     }
 
     /**
