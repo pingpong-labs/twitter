@@ -244,7 +244,11 @@ class Twitter
             case 'json':
                 return $collection->toJson();
                 break;
-            
+
+            case 'object':
+               return json_decode(json_encode($collection->toArray()), false);
+               break;
+
             default:
                 return $collection->toArray();
                 break;
