@@ -10,12 +10,12 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
-        "illuminate/support": "5.0.*",
-        "illuminate/session": "5.0.*",
-        "illuminate/config": "5.0.*",
-        "illuminate/routing": "5.0.*",
-        "illuminate/http": "5.0.*",
+        "php": ">=5.5.9",
+        "illuminate/support": "5.1.*",
+        "illuminate/session": "5.1.*",
+        "illuminate/config": "5.1.*",
+        "illuminate/routing": "5.1.*",
+        "illuminate/http": "5.1.*",
         "jublonet/codebird-php": "~2"
     },
     "require-dev": {
